@@ -1,0 +1,8 @@
+Django
+python-socketio
+eventlet
+django-grappelli
+django-debug-toolbar
+django-debug-panel
+Pillow
+redis
