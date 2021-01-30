@@ -21,9 +21,6 @@ def remove_user_task(sid):
 def connect(sid, environ):
     print('connect ', sid)
 
-@sio.event
-def ping(sid, data):
-    print('ping ', data)
 
 @sio.event
 def login(sid, data):
