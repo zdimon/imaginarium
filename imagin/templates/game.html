@@ -1,0 +1,30 @@
+
+{% extends 'layout.html' %}
+
+{% block main %}
+
+<h1>Game board</h1>
+
+<h2> Игроки </h2>
+<div id="players"></div>
+<h2>Игровой стол</h2>
+<div id="board"></div>
+<h2>У вас на руках</h2>
+<div id="hand"></div>
+
+<script>
+    const socket = io('ws://localhost:5001', {transports:['websocket']}); 
+
+    socket.on('connect', () => {
+            socket.emit('login',{login: window.localStorage.getItem('login')});
+            
+        });
+
+        
+
+
+</script>
+
+
+               
+{% endblock %}
