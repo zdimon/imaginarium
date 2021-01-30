@@ -1,0 +1,30 @@
+
+{% extends 'layout.html' %}
+
+{% block main %}
+
+<h1>Login page</h1>
+
+{% if user %}
+<h1>Welcome {{ user.login }} !!!</h1>
+<a href="{% url 'game' %}">Играть!</a>
+<script>
+    window.localStorage.setItem('login','{{ user.login }}');
+    window.localStorage.setItem('image','{{ user.image.url }}')
+</script>
+{% else %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+<script>
+    var login = window.localStorage.getItem('login');
+    if (login) {
+        window.location = '/game';
+    } 
+</script>
+{% endif %}
+               
+{% endblock %}

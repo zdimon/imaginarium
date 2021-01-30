@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head><title>TypeScript Greeter</title>
+        <script src="static/jquery.min.js"></script>
+        <script src="static/client-dist/socket.io.js"></script>
+        <link rel="stylesheet" href="{% static 'my.css' %}" >
+    </head>
+    <body>
+        <h1>Imaginarium</h1>
+
+        {% block main %}
+               
+        {% endblock %}
+        <style>
+            body {
+                padding: 10px;
+            }
+        </style>
+    </body>
+</html>
+
+
+
+
+
