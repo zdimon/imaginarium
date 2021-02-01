@@ -7,3 +7,4 @@ django-debug-panel
 Pillow
 redis
 python-dotenv
+pygit2
