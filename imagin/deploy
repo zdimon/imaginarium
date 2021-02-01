@@ -1,0 +1,6 @@
+cd ..
+. ./venv/bin/activate
+git pull
+pip install -r requirements.txt
+cd imagin
+./manage.py migrate

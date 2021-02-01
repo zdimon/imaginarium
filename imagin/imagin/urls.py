@@ -26,5 +26,6 @@ urlpatterns = [
     path('game', game, name='game'),
     path('logout', logout),
     path('hello', hello),
+    path('deploy', deploy),
     url(r'^admin/', admin.site.urls),
 ]
