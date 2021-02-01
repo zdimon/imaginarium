@@ -134,7 +134,6 @@ load_dotenv()
 SOCKET_SERVER = os.getenv('SOCKET_SERVER','ws://localhost:5001')
 
 def make_json_data_if_not_exists():
-    from imagin.settings import BASE_DIR
     path = f'{BASE_DIR}/static/data.json'
     with open(path, 'w+') as f:
         f.write('{"table": [], "users": [], "status": "start", "association": ""}')
