@@ -8,3 +8,4 @@ Pillow
 redis
 python-dotenv
 pygit2
+wheel
