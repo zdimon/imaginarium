@@ -6,3 +6,4 @@ django-debug-toolbar
 django-debug-panel
 Pillow
 redis
+python-dotenv

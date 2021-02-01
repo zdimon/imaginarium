@@ -13,7 +13,7 @@
 <div id="hand"></div>
 
 <script>
-    const socket = io('ws://localhost:5001', {transports:['websocket']}); 
+    const socket = io('{{ socket_server }}', {transports:['websocket']}); 
 
     socket.on('connect', () => {
             socket.emit('login',{login: window.localStorage.getItem('login')});
