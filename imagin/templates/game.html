@@ -59,7 +59,24 @@
             state.users.forEach(function(el){
                 if(el.login === user_login) {
                     el.cards.forEach(function(card){
-                        hand_small_div.append(`<img height="60" src="${card.image}">`);
+                        hand_small_div.append(`<img data-card-id="${card.id}" id="${card.id}-hand-card-small" height="60" src="${card.image}">`);
+                        $(`#${card.id}-hand-card-small`).on('click', function(el) {
+                            var obj = $(el.target);
+
+                            var myJSObject = {
+                                login: window.localStorage.getItem('login'),
+                                card_id: obj.attr('data-card-id')
+                            };
+
+                            $.ajax('/put/card/on/table', {
+                                data : JSON.stringify(myJSObject),
+                                contentType : 'application/json',
+                                type : 'POST',
+                                success: function(data) {
+                                    console.log(data);
+                                }
+                            });
+                        });
                     })
                 }
                 

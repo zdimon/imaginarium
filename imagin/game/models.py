@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.safestring import mark_safe
 
 class Gameuser(models.Model):
     login = models.CharField(max_length=50,unique=True)
@@ -41,3 +41,14 @@ class Gameuser(models.Model):
             self.set_online(True)
         else:
             self.set_online(False)
+
+class Card(models.Model):
+    on_hand = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='user_images',null=True,blank=True)    
+
+    def image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" width=100 />')
+
+class Card2User(models.Model):
+    user = models.ForeignKey(Gameuser,on_delete=models.CASCADE)
+    card = models.ForeignKey(Card,on_delete=models.CASCADE)
