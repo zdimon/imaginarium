@@ -127,3 +127,8 @@ img.card-back-small {
     font-size: 16px;
     color: black;
 }
+
+#chat-start {
+    background-color: chartreuse;
+    font-size: 24px;
+}

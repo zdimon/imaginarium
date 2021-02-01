@@ -4,7 +4,7 @@
       <!-- Required meta tags -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>SocialV - Responsive Bootstrap 4 Admin Dashboard Template</title>
+      <title>Imaginarium</title>
       <!-- Favicon -->
       <link rel="shortcut icon" href="images/favicon.ico" />
       <!-- Bootstrap CSS -->
@@ -45,8 +45,8 @@
                                                       <i class="ri-menu-3-line"></i>
                                                    </div>
                                                    <div class="avatar chat-user-profile m-0 mr-3">
-                                                      <img src="images/user/09.jpg" alt="avatar" class="avatar-50 ">
-                                                      <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
+                                                      <img src="/static/images/logo.jpg" alt="avatar" class="avatar-50 ">
+                                                      
                                                    </div>
                                                    <h5 class="mb-0">Imaginarium</h5>
                                                 </div>
@@ -57,20 +57,35 @@
                                              </header>
                                           </div>
                                           <div class="chat-content" style="height: calc(100vh - 14rem);">
-                                             
-                                            
+                                            {% if user %}
+                                            <h1>Welcome {{ user.login }} !!!</h1>
+                                            <a href="{% url 'game' %}">Играть!</a>
+                                            <script>
+                                                window.localStorage.setItem('login','{{ user.login }}');
+                                                window.localStorage.setItem('image','{{ user.image.url }}')
+                                                window.location = '/game';
+                                            </script>
+                                            {% else %}
+                                            <form action="" method="POST" enctype="multipart/form-data">
                                              <div class="tab-pane fade active show" id="default-block" role="tabpanel">
                                                 <div class="chat-start">
-                                                   Как вас зовут?
-                                                   <input type="text" class="round" />
-                                                   <button id="chat-start" class="btn bg-white mt-3">Start
-                                                   Conversation!</button>
+                                                    {% csrf_token %} 
+                                                    {{ form.as_p }}
+                                                   <button id="chat-start" class="btn bg-white mt-3">Login</button>
                                                 </div>
                                              </div>
+                                            </form>
+                                            <script>
+                                                var login = window.localStorage.getItem('login');
+                                                if (login) {
+                                                    window.location = '/game';
+                                                } 
+                                            </script>
+                                            {% endif %}
                                           </div>
                                           
                                           <div id="help-box">
-                                             Help message about what to do now.
+                                             Say your name and pic.
                                           </div>
                                           
                                        </div>

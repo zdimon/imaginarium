@@ -1,17 +1,6 @@
 
 {% extends 'layout.html' %}
-
 {% block main %}
-
-<h1>Game board</h1>
-
-<h2> Игроки </h2>
-<div id="players"></div>
-<h2>Игровой стол</h2>
-<div id="board"></div>
-<h2>У вас на руках</h2>
-<div id="hand"></div>
-
 <script>
     const socket = io('{{ socket_server }}', {transports:['websocket']}); 
 
@@ -24,11 +13,5 @@
         console.log(msg);
     })
 
-        
-
-
-</script>
-
-
-               
+</script>  
 {% endblock %}
