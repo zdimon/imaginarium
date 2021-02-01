@@ -29,7 +29,7 @@ def update_online_users_in_json():
                  } for item in Card2User.objects.filter(user=user)
              ]
              }) 
-    print('append',user.login)
+        print('append',user.login)
     json_data['users'] = users
     with open(json_path, 'w') as file:
         file.write(json.dumps(json_data))        
