@@ -111,3 +111,19 @@ img.item-photoline.first:hover {
     opacity: 1;
     filter: sepia(0);
 }
+
+img.card-back-small {
+    margin-left: 5px;
+    height: 60px;
+}
+
+.img-board {
+    text-align: center;
+}
+
+#help-box {
+    padding-top: 5px;
+    text-align: center;
+    font-size: 16px;
+    color: black;
+}
