@@ -10,8 +10,64 @@
         });
 
     socket.on('ping', msg => {
-        console.log(msg);
+        draw_users(msg.state);
+        draw_board(msg.state);
+        draw_hand(msg.state);
     })
+
+
+    var draw_users = function (state) {
+        var players_div = $('#players');
+            players_div.empty();
+            state.users.forEach(function(el){
+                let tpl = `<div class="media align-items-center mb-4">
+                           <div class="iq-profile-avatar status-online">
+                              <img class="rounded-circle avatar-50" src="${el.image}" alt="">
+                           </div>
+                           <div class="media-body ml-3">
+                              <h6 class="mb-0"><a href="#">Anna Sthesia</a></h6>
+                              <p class="mb-0">${el.login}</p>
+                           </div>
+                        </div>`
+                players_div.append(tpl);
+            });        
+    }
+
+
+    var draw_board = function(state) {
+            var board_div = $('#board');
+            board_div.empty();
+            state.table.forEach(function(el){
+                board_div.append(`<img src="${el.image}">`);
+            });
+        }
+
+        var draw_hand = function(state) {
+            var hand_div = $('#hand');
+            hand_div.empty();
+            var user_login = window.localStorage.getItem('login');
+            state.users.forEach(function(el){
+                if(el.login === user_login) {
+                    el.cards.forEach(function(card){
+                        hand_div.append(`<img src="${card.image}">`);
+                    })
+                }
+                
+            });
+            var hand_small_div = $('#hand_small');
+            hand_small_div.empty();
+            state.users.forEach(function(el){
+                if(el.login === user_login) {
+                    el.cards.forEach(function(card){
+                        hand_small_div.append(`<img height="60" src="${card.image}">`);
+                    })
+                }
+                
+            });
+        }
+
+
+
 
 </script>  
 {% endblock %}

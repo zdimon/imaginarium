@@ -21,7 +21,11 @@ def update_online_users_in_json():
     for user in Gameuser.objects.filter(is_online=True):
         users.append({ \
              'login': user.login, \
-             'image': user.image.url \
+             'image': user.image.url, \
+             'cards': [ \
+                     {'image': 'static/images/cards/8.jpg'}, \
+                     {'image': 'static/images/cards/9.jpg'}, \
+                 ]
              }) 
     print('append',user.login)
     json_data['users'] = users
