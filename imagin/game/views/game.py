@@ -9,6 +9,8 @@ def game(request):
         dial_cards_to_user(u)
     return render(request, 'game.html', {'socket_server': SOCKET_SERVER})
 
+
+
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 @csrf_exempt

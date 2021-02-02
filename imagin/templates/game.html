@@ -4,6 +4,8 @@
 <script>
     const socket = io('{{ socket_server }}', {transports:['websocket']}); 
 
+
+
     socket.on('connect', () => {
             socket.emit('login',{login: window.localStorage.getItem('login')});
             
