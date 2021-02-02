@@ -26,7 +26,7 @@ def update_online_users_in_json():
                  { \
                     'id':item.card.id, \
                     'image':item.card.image.url, \
-                 } for item in Card2User.objects.filter(user=user)
+                 } for item in Card2User.objects.filter(user=user, position='hand')
              ]
              }) 
         print('append',user.login)
@@ -45,7 +45,7 @@ def put_user_cards_to_json(user):
     cards = [{ \
         'id':item.card.id, \
         'image':item.card.image.url, \
-        } for item in Card2User.objects.filter(user=user)]
+        } for item in Card2User.objects.filter(user=user,position='hand')]
     for u in json_data['users']:
         if u['login'] == user.login:
             u['cards'] = cards
@@ -54,7 +54,7 @@ def put_user_cards_to_json(user):
         file.write(json.dumps(json_data))
 
 def dial_cards_to_user(user):
-    count_cards = Card2User.objects.filter(user=user).count()
+    count_cards = Card2User.objects.filter(user=user,position='hand').count()
     for number in range(count_cards,6):
         card = get_random_card()
         c2u = Card2User()
@@ -66,9 +66,11 @@ def dial_cards_to_user(user):
     put_user_cards_to_json(user)
 
 
-def put_card_on_table_json(user,card):
-    c2u = Card2User.objects.get(user=user,card=card)
-    c2u.delete()
+def put_card_on_table_json(user,card,is_right):
+    c2u = Card2User.objects.get(user=user,card=card,position='hand')
+    c2u.position = 'table'
+    c2u.is_right = is_right
+    c2u.save()
     card.on_hand = False
     card.save()
     with open(json_path, 'r') as file:

@@ -138,4 +138,4 @@ def make_json_data_if_not_exists():
     with open(path, 'w+') as f:
         f.write('{"table": [], "users": [], "status": "start", "association": ""}')
 
-make_json_data_if_not_exists() 
+#make_json_data_if_not_exists() 

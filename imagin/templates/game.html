@@ -40,9 +40,26 @@
             var board_div = $('#board');
             board_div.empty();
             state.table.forEach(function(el){
-                board_div.append(`<img src="${el.image}">`);
+                board_div.append(`<img data-card-id="${el.id}" id="${el.id}-board-card" src="${el.image}">`);
+
+                $(`#${el.id}-board-card`).on('click', function(el) {
+                    var obj = $(el.target);
+                    var myJSObject = {
+                        login: window.localStorage.getItem('login'),
+                        card_id: obj.attr('data-card-id')
+                    };
+                    $.ajax('/propose', {
+                        data : JSON.stringify(myJSObject),
+                        contentType : 'application/json',
+                        type : 'POST',
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
+                });
+                
             });
-        }
+        };
 
         var draw_hand = function(state) {
             var hand_div = $('#hand');
@@ -70,7 +87,7 @@
                                 card_id: obj.attr('data-card-id')
                             };
 
-                            $.ajax('/put/card/on/table', {
+                            $.ajax('/gessing', {
                                 data : JSON.stringify(myJSObject),
                                 contentType : 'application/json',
                                 type : 'POST',

@@ -8,6 +8,9 @@ class Gameuser(models.Model):
     sids = models.TextField(default='')
     is_online = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.login
+
     def add_sid(self,sid):
         sids = self.sids.split(';')
         if sid not in sids:
@@ -49,6 +52,23 @@ class Card(models.Model):
     def image_tag(self):
         return mark_safe(f'<img src="{self.image.url}" width=100 />')
 
+
+POSITION = (
+    ("hand", "hand"),
+    ("table", "table")
+)
+
 class Card2User(models.Model):
     user = models.ForeignKey(Gameuser,on_delete=models.CASCADE)
     card = models.ForeignKey(Card,on_delete=models.CASCADE)
+    position = models.CharField(max_length=10,
+                        choices=POSITION,
+                        default="hand")
+    is_right = models.BooleanField(default=False)
+
+class Propose(models.Model):
+    proposer = models.ForeignKey(Gameuser,on_delete=models.CASCADE,related_name='proposer')
+    owner = models.ForeignKey(Gameuser,on_delete=models.CASCADE,related_name='owner')
+    card = models.ForeignKey(Card,on_delete=models.CASCADE)
+    
+    is_right = models.BooleanField(default=False)

@@ -27,7 +27,11 @@ urlpatterns = [
     path('logout', logout),
     path('hello', hello),
     path('deploy', deploy),
-    path('put/card/on/table', put_card_on_table),
+
+    path('gessing', gessing),
+    path('betting', betting),
+    path('propose', propose),
+
     url(r'^admin/', admin.site.urls),
 ]
 
