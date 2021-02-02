@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import GameuserForm
-from game.utils import find_user
+from game.utils import find_user, dial_cards_to_user
 
 def index(request):
     user = None
@@ -12,6 +12,7 @@ def index(request):
         if not user:
             if form.is_valid():
                 user = form.save()
+        dial_cards_to_user(user)
     else:
         form = GameuserForm()
     

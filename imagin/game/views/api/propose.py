@@ -7,6 +7,8 @@ import json
 def propose(request):
     data = json.loads(request.body)
     user = Gameuser.objects.get(login=data['login'])
+    user.state = 'proposed'
+    user.save()
     card = Card.objects.get(pk=int(data['card_id']))
     c2u = Card2User.objects.get(card=card,position='table')
     try:

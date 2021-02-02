@@ -15,6 +15,8 @@
         draw_users(msg.state);
         draw_board(msg.state);
         draw_hand(msg.state);
+        draw_start_button(msg.state);
+        draw_help_message(msg.state);
     })
 
 
@@ -22,12 +24,17 @@
         var players_div = $('#players');
             players_div.empty();
             state.users.forEach(function(el){
+                if(el.state === 'gessor'){
+                    var status = 'online';
+                } else {
+                    var status = 'offline';
+                }
                 let tpl = `<div class="media align-items-center mb-4">
-                           <div class="iq-profile-avatar status-online">
+                           <div class="iq-profile-avatar status-${status}">
                               <img class="rounded-circle avatar-50" src="${el.image}" alt="">
                            </div>
                            <div class="media-body ml-3">
-                              <h6 class="mb-0"><a href="#">Anna Sthesia</a></h6>
+                              <h6 class="mb-0"><a href="#">${el.state}</a></h6>
                               <p class="mb-0">${el.login}</p>
                            </div>
                         </div>`
@@ -86,15 +93,27 @@
                                 login: window.localStorage.getItem('login'),
                                 card_id: obj.attr('data-card-id')
                             };
-
-                            $.ajax('/gessing', {
-                                data : JSON.stringify(myJSObject),
-                                contentType : 'application/json',
-                                type : 'POST',
-                                success: function(data) {
-                                    console.log(data);
-                                }
-                            });
+                            var user = get_current_user(state.users);
+                            if(user.state === 'gessor') {
+                                $.ajax('/gessing', {
+                                    data : JSON.stringify(myJSObject),
+                                    contentType : 'application/json',
+                                    type : 'POST',
+                                    success: function(data) {
+                                        console.log(data);
+                                    }
+                                });
+                            }
+                            if(user.state === 'betor') {
+                                $.ajax('/betting', {
+                                    data : JSON.stringify(myJSObject),
+                                    contentType : 'application/json',
+                                    type : 'POST',
+                                    success: function(data) {
+                                        console.log(data);
+                                    }
+                                });                                
+                            }
                         });
                     })
                 }
@@ -103,6 +122,72 @@
         }
 
 
+        var draw_start_button = function(state) {
+            var is_show = true;
+            var hand_div = $('#start_button');
+            state.users.forEach(function(el){
+                if(el.state === 'gessor' || el.state === 'gessed') {
+                    is_show = false;
+                }
+            });
+            if(is_show === true) {
+                
+                hand_div.show();
+                $('#start_button').on('click',function() {
+                    $.ajax('/start', {
+                                data : JSON.stringify({
+                                    login: window.localStorage.getItem('login')
+                                    }),
+                                contentType : 'application/json',
+                                type : 'POST',
+                                success: function(data) {
+                                    console.log(data);
+                                }
+                            });                    
+                })
+            }  else {
+                hand_div.hide();
+            }
+        }
+
+        get_current_user = function(users){
+            for(var i=0; i<=users.length-1; i++) {
+                if (users[i].login === window.localStorage.getItem('login')) 
+                {
+                    return users[i];
+                }
+            }
+        }
+
+        var draw_help_message = function(state) {
+            var block = $('#help_message');
+            var user = get_current_user(state.users);
+            if(user.state === 'gessor') {
+                var message = 'Загадывайте ассоциацию и выбирайте картинку!';
+               
+            } else if(user.state === 'gessed') {
+                var message = 'Подождите пока все игроки попытаются угадать.';
+               
+            } else if(user.state === 'betor') {
+                var message = 'Подождите пока загадают ассоциацию и выберете под нее картинку.';
+               
+            } else if(user.state === 'beted') {
+                var message = 'Подождите пока все игроки выложат по картинке.';
+               
+            } else if(user.state === 'proposer') {
+                var message = 'Пробуйте угадать правильную картинку.';
+               
+            } else if(user.state === 'proposeed') {
+                var message = 'Ожидайте пока все не сделают ставки.';
+               
+            }
+            else {
+                var message = 'Сообщения нет!';
+            }
+            block.empty();
+            block.html(message);
+            
+        }
 
 
 </script>  

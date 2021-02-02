@@ -6,3 +6,4 @@ from .deploy import *
 from .api.gessing import *
 from .api.betting import *
 from .api.propose import *
+from .api.start import *

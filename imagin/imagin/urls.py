@@ -31,6 +31,7 @@ urlpatterns = [
     path('gessing', gessing),
     path('betting', betting),
     path('propose', propose),
+    path('start', start),
 
     url(r'^admin/', admin.site.urls),
 ]

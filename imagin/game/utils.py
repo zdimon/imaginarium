@@ -22,6 +22,7 @@ def update_online_users_in_json():
         users.append({ \
              'login': user.login, \
              'image': user.image.url, \
+             'state': user.state, \
              'cards': [
                  { \
                     'id':item.card.id, \
@@ -36,7 +37,8 @@ def update_online_users_in_json():
 
 
 def get_random_card():
-    return Card.objects.filter(on_hand=False).order_by('?').first()
+    return Card.objects.all().order_by('?').first()
+    #return Card.objects.filter(on_hand=False).order_by('?').first()
 
 def put_user_cards_to_json(user):
     with open(json_path, 'r') as file:

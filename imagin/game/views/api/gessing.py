@@ -8,6 +8,8 @@ from game.models import Gameuser, Card, Card2User
 def gessing(request):
     data = json.loads(request.body)
     user = Gameuser.objects.get(login=data['login'])
+    user.state = 'gessed'
+    user.save()
     card = Card.objects.get(pk=int(data['card_id']))
     try:
         Card2User.objects.get(user=user,position='table')
