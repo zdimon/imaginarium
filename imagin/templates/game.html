@@ -171,7 +171,7 @@
 
         get_gessor = function(users){
             for(var i=0; i<=users.length-1; i++) {
-                if (users[i].state === 'gessor' || 'gessed') 
+                if (users[i].state === 'gessor' || users[i].state === 'gessed') 
                 {
                     return users[i];
                 }
