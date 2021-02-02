@@ -1,4 +1,4 @@
-from game.models import Gameuser
+from game.models import Gameuser, Card2User, Card
 from imagin.settings import BASE_DIR
 json_path = f'{BASE_DIR}/static/data.json'
 import json
@@ -21,13 +21,32 @@ def update_online_users_in_json():
     for user in Gameuser.objects.filter(is_online=True):
         users.append({ \
              'login': user.login, \
-             'image': user.image.url \
+             'image': user.image.url, \
+             'cards': [
+                 { \
+                    'id':item.card.id, \
+                    'image':item.card.image.url, \
+                 } for item in Card2User.objects.filter(user=user)
+             ]
              }) 
-    print('append',user.login)
+        print('append',user.login)
     json_data['users'] = users
+    print(json_data)
     with open(json_path, 'w') as file:
-        file.write(json.dumps(json_data))        
+        file.write(json.dumps(json_data))    
 
+
+def get_random_card():
+    return Card.objects.filter(on_hand=False).order_by('?').first()
+
+def dial_cards_to_user(user):
+    count_cards = Card2User.objects.filter(user=user).count()
+    for number in range(count_cards,6):
+        card = get_random_card()
+        c2u = Card2User()
+        c2u.user = user
+        c2u.card = card
+        c2u.save()
 
 
 
