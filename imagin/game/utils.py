@@ -88,4 +88,15 @@ def put_card_on_table_json(user,card,is_right):
         file.write(json.dumps(json_data))
     put_user_cards_to_json(user)
 
-
+def clear_table():
+    with open(json_path, 'r') as file:
+        json_data = json.loads(file.read())
+    json_data['table'] = []
+    with open(json_path, 'w') as file:
+        file.write(json.dumps(json_data)) 
+    for c2u in Card2User.objects.filter(position='table'):
+        c2u.delete()
+    for user in Gameuser.objects.filter():
+        user.state = 'betor'
+        user.save()
+        dial_cards_to_user(user)

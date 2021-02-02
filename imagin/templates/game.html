@@ -17,6 +17,7 @@
         draw_hand(msg.state);
         draw_start_button(msg.state);
         draw_help_message(msg.state);
+        
     })
 
 
@@ -39,7 +40,16 @@
                            </div>
                         </div>`
                 players_div.append(tpl);
-            });        
+            });   
+
+            var gessor = get_gessor(state.users);
+            if(gessor) {
+                var gessor_image = $('#gessor_image');
+                let tpl = `<img src="${gessor.image}" alt="avatar" class="avatar-50 ">
+                <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>`;
+                gessor_image.empty();
+                gessor_image.append(tpl);
+            }     
     }
 
 
@@ -153,6 +163,15 @@
         get_current_user = function(users){
             for(var i=0; i<=users.length-1; i++) {
                 if (users[i].login === window.localStorage.getItem('login')) 
+                {
+                    return users[i];
+                }
+            }
+        }
+
+        get_gessor = function(users){
+            for(var i=0; i<=users.length-1; i++) {
+                if (users[i].state === 'gessor' || 'gessed') 
                 {
                     return users[i];
                 }
