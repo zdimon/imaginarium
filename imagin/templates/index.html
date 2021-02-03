@@ -66,12 +66,13 @@
                                                 window.location = '/game';
                                             </script>
                                             {% else %}
-                                            <form action="" method="POST" enctype="multipart/form-data">
+                                            <form action="" id="login_form" method="POST" enctype="multipart/form-data">
                                              <div class="tab-pane fade active show" id="default-block" role="tabpanel">
                                                 <div class="chat-start">
                                                     {% csrf_token %} 
                                                     {{ form.as_p }}
-                                                   <button id="chat-start" class="btn bg-white mt-3">Login</button>
+                                                  
+                                                   <button id="chat-start" type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Войти в игру</span></button>                                                
                                                 </div>
                                              </div>
                                             </form>

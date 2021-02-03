@@ -4,3 +4,4 @@ venv
 imagin/db.sqlite3
 imagin/static/data.json 
 imagin/media/user_images
+imagin/media/card_images

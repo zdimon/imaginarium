@@ -13,9 +13,8 @@ USER_STATES = (
 )
 
 class Gameuser(models.Model):
-    login = models.CharField(max_length=50,unique=True)
-    password = models.CharField(max_length=250)
-    image = models.ImageField(upload_to='user_images',null=True,blank=True)
+    login = models.CharField(max_length=50,unique=True, verbose_name='Ваше имя')
+    image = models.ImageField(upload_to='user_images',null=True,blank=True,verbose_name='Выберите картинку')
     sids = models.TextField(default='')
     is_online = models.BooleanField(default=False)
     association = models.TextField(default="empty")
@@ -67,7 +66,7 @@ class Gameuser(models.Model):
 
 class Card(models.Model):
     on_hand = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='user_images',null=True,blank=True)    
+    image = models.ImageField(upload_to='card_images',null=True,blank=True)    
 
     def image_tag(self):
         return mark_safe(f'<img src="{self.image.url}" width=100 />')

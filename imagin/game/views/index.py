@@ -8,8 +8,7 @@ def index(request):
     if request.method == 'POST':
         form = GameuserForm(request.POST, request.FILES)
         login = request.POST['login']
-        password = request.POST['password']
-        user = find_user(login,password)
+        user = find_user(login)
         if not user:
             if form.is_valid():
                 user = form.save()
