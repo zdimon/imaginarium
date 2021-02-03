@@ -132,6 +132,7 @@ MEDIA_URL = '/media/'
 from dotenv import load_dotenv
 load_dotenv()
 SOCKET_SERVER = os.getenv('SOCKET_SERVER','ws://localhost:5001')
+BROWSER_STORAGE = os.getenv('BROWSER_STORAGE','sessionStorage')
 
 def make_json_data_if_not_exists():
     path = f'{BASE_DIR}/static/data.json'

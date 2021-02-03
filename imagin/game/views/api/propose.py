@@ -2,6 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from game.models import Gameuser, Card, Card2User, Propose
 import json
+from game.utils import try_to_count
 
 @csrf_exempt
 def propose(request):
@@ -22,5 +23,6 @@ def propose(request):
         if c2u.is_right:
             p.is_right = True
         p.save()
+        try_to_count()
     return HttpResponse('OK')
     

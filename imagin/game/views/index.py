@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import GameuserForm
 from game.utils import find_user, dial_cards_to_user, clear_table
+from imagin.settings import BROWSER_STORAGE
 
 def index(request):
     user = None
@@ -16,7 +17,7 @@ def index(request):
     else:
         form = GameuserForm()
     
-    return render(request, 'index.html', {"form": form, "user": user})
+    return render(request, 'index.html', {"form": form, "user": user, "storage": BROWSER_STORAGE})
 
 
 

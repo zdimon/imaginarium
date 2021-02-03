@@ -22,6 +22,7 @@ class Gameuser(models.Model):
     state = models.CharField(max_length=10,
                             choices=USER_STATES,
                             default="betor")
+    account = models.IntegerField(default=0)
 
     def __str__(self):
         return self.login
@@ -85,6 +86,13 @@ class Card2User(models.Model):
                         default="hand")
     is_right = models.BooleanField(default=False)
     is_down = models.BooleanField(default=False)
+
+    def delete(self, *args, **kwargs):
+        card = self.card
+        card.on_hand = False
+        card.save()
+        super(Gameuser, self).save(*args, **kwargs)
+        
 
 class Propose(models.Model):
     proposer = models.ForeignKey(Gameuser,on_delete=models.CASCADE,related_name='proposer')

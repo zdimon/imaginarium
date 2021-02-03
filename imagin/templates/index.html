@@ -61,8 +61,8 @@
                                             <h1>Welcome {{ user.login }} !!!</h1>
                                             <a href="{% url 'game' %}">Играть!</a>
                                             <script>
-                                                window.localStorage.setItem('login','{{ user.login }}');
-                                                window.localStorage.setItem('image','{{ user.image.url }}')
+                                                window.{{storage}}.setItem('login','{{ user.login }}');
+                                                window.{{storage}}.setItem('image','{{ user.image.url }}')
                                                 window.location = '/game';
                                             </script>
                                             {% else %}
@@ -76,7 +76,7 @@
                                              </div>
                                             </form>
                                             <script>
-                                                var login = window.localStorage.getItem('login');
+                                                var login = window.{{storage}}.getItem('login');
                                                 if (login) {
                                                     window.location = '/game';
                                                 } 

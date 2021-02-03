@@ -24,7 +24,7 @@ urlpatterns = [
 
     path('', index),
     path('game', game, name='game'),
-    path('logout', logout),
+    path('logout/<slug:login>', logout),
     path('hello', hello),
     path('deploy', deploy),
 

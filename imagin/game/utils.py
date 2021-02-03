@@ -1,4 +1,4 @@
-from game.models import Gameuser, Card2User, Card
+from game.models import Gameuser, Card2User, Card, Propose
 from imagin.settings import BASE_DIR
 json_path = f'{BASE_DIR}/static/data.json'
 import json
@@ -23,6 +23,7 @@ def update_online_users_in_json():
              'login': user.login, \
              'image': user.image.url, \
              'state': user.state, \
+             'account': user.account, \
              'association': user.association, \
              'cards': [
                  { \
@@ -75,7 +76,7 @@ def put_card_on_table_json(user,card,is_right):
     c2u.is_right = is_right
     c2u.is_down = True;
     c2u.save()
-    is_down = True
+
     if not is_right:
         count_cards = Card2User.objects.filter(position='table').count()
         count_users = Gameuser.objects.filter(is_online=True).count()
@@ -116,3 +117,30 @@ def clear_table():
         user.state = 'betor'
         user.save()
         dial_cards_to_user(user)
+
+from django.db.models import Q
+
+def try_to_count():
+    usercheck = Gameuser.objects.filter(Q(state='propose') | Q(state='bet') | Q(state='beted'), is_online=True).count()
+    print('Checkuser ', usercheck)
+    if usercheck == 0:
+        for p in Propose.objects.all():
+            if p.is_right:
+                user = p.proposer
+                user.account += 1
+                user.save()
+
+        Card2User.objects.filter(position='table').delete()
+        for user in Gameuser.objects.filter(is_online=True):
+            dial_cards_to_user(user)
+
+        ## Передадим ход дальше
+        dialer = Gameuser.objects.get(state='gessed')
+        try:
+            nextuser = Gameuser.objects.filter(state='proposed', is_online=True, id__gt=dialer.id).order_by('id')[0]
+        except:
+            nextuser = Gameuser.objects.filter(state='proposed', is_online=True).order_by('-id')[0]
+
+        nextuser.state = 'gessor'
+        nextuser.save()
+        Gameuser.objects.exclude(state='gessor').update(state='betor')

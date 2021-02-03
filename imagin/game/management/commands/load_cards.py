@@ -8,7 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print('Load cards')
         Card.objects.all().delete()
-        for i in range(1,19):
+        for i in range(1,70):
             card = Card()
             card.save()
             filepath = f'{BASE_DIR}/static/images/cards/{i}.jpg'

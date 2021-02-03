@@ -7,7 +7,7 @@
 
 
     socket.on('connect', () => {
-            socket.emit('login',{login: window.localStorage.getItem('login')});
+            socket.emit('login',{login: window.{{storage}}.getItem('login')});
             
         });
 
@@ -50,7 +50,15 @@
                 gessor_image.empty();
                 gessor_image.append(tpl);
                 $('#association_text').html(gessor.association);
-            }     
+            }  
+            try {
+                var current_user = get_current_user(state.users); 
+                $('#current_player').html(`${current_user.login}: ${current_user.account} point(s) from 30
+                <a href="/logout/${current_user.login}">Logout</a>
+                `)
+            } catch {
+
+            }  
     }
 
 
@@ -65,21 +73,29 @@
                 }
                 board_div.append(`<img data-card-id="${el.id}" id="${el.id}-board-card" src="${imgurl}">`);
 
-                $(`#${el.id}-board-card`).on('click', function(el) {
-                    var obj = $(el.target);
-                    var myJSObject = {
-                        login: window.localStorage.getItem('login'),
-                        card_id: obj.attr('data-card-id')
-                    };
-                    $.ajax('/propose', {
-                        data : JSON.stringify(myJSObject),
-                        contentType : 'application/json',
-                        type : 'POST',
-                        success: function(data) {
-                            console.log(data);
-                        }
+                var user = get_current_user(state.users);
+                if(user.state === 'beted') {
+                    $(`#${el.id}-board-card`).addClass('pointer');
+                    $(`#${el.id}-board-card`).on('click', function(el) {
+                        var obj = $(el.target);
+                        var myJSObject = {
+                            login: window.{{storage}}.getItem('login'),
+                            card_id: obj.attr('data-card-id')
+                        };
+                        $.ajax('/propose', {
+                            data : JSON.stringify(myJSObject),
+                            contentType : 'application/json',
+                            type : 'POST',
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        });
                     });
-                });
+                }
+                if(user.state === 'proposed') {
+                    $(`#${el.id}-board-card`).addClass('checked');
+                    $(`#${el.id}-board-card`).off('click');
+                }
                 
             });
         };
@@ -87,7 +103,7 @@
         var draw_hand = function(state) {
             var hand_div = $('#hand');
             hand_div.empty();
-            var user_login = window.localStorage.getItem('login');
+            var user_login = window.{{storage}}.getItem('login');
             state.users.forEach(function(el){
                 if(el.login === user_login) {
                     el.cards.forEach(function(card){
@@ -101,12 +117,12 @@
             state.users.forEach(function(el){
                 if(el.login === user_login) {
                     el.cards.forEach(function(card){
-                        hand_small_div.append(`<img data-card-id="${card.id}" id="${card.id}-hand-card-small" height="60" src="${card.image}">`);
+                        hand_small_div.append(`<img class="pointer" data-card-id="${card.id}" id="${card.id}-hand-card-small" height="60" src="${card.image}">`);
                         $(`#${card.id}-hand-card-small`).on('click', function(el) {
                             var obj = $(el.target);
 
                             var myJSObject = {
-                                login: window.localStorage.getItem('login'),
+                                login: window.{{storage}}.getItem('login'),
                                 card_id: obj.attr('data-card-id'),
                                 assoc: $('#assoc-input').val()
                             };
@@ -153,7 +169,7 @@
                 $('#start_button').on('click',function() {
                     $.ajax('/start', {
                                 data : JSON.stringify({
-                                    login: window.localStorage.getItem('login')
+                                    login: window.{{storage}}.getItem('login')
                                     }),
                                 contentType : 'application/json',
                                 type : 'POST',
@@ -169,7 +185,7 @@
 
         get_current_user = function(users){
             for(var i=0; i<=users.length-1; i++) {
-                if (users[i].login === window.localStorage.getItem('login')) 
+                if (users[i].login === window.{{storage}}.getItem('login')) 
                 {
                     return users[i];
                 }
