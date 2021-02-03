@@ -74,8 +74,26 @@
                         
                         hand_small_div.append(`<img data-card-id="${card.id}" id="${card.id}-hand-small" width=50 src="${card.image}">`);
 
-                        $(`${card.id}-hand-small`).on('click', function(el) {
-                             console.log(el);
+                        $(`#${card.id}-hand-small`).on('click', function(el) {
+                             var image = $(el.target);
+                             let image_id = image.attr('data-card-id');
+
+                             var myJSObject = {
+                                login: window.localStorage.getItem('login'),
+                                card_id: image_id
+                            };
+
+                            $.ajax('/guessing', {
+                                data : JSON.stringify(myJSObject),
+                                contentType : 'application/json',
+                                type : 'POST',
+                                success: function(data) {
+                                    console.log(data);
+                                }
+                            });          
+
+
+
                         });
                     })
                 }

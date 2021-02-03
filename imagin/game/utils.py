@@ -50,6 +50,24 @@ def dial_cards_to_user(user):
 
 
 
+def put_card_on_table_json(user,card):
+    c2u = Card2User.objects.get(user=user,card=card)
+    c2u.delete()
+    card.on_hand = False
+    card.save()
+    with open(json_path, 'r') as file:
+        json_data = json.loads(file.read())
+    json_data['table'].append( \
+        { \
+            "id": card.id, \
+            "image": card.image.url, \
+            "is_true": "false" \
+        } \
+    ) 
+    with open(json_path, 'w') as file:
+        file.write(json.dumps(json_data))
+
+
 
 
 
