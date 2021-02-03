@@ -11,7 +11,7 @@ class CardAdmin(admin.ModelAdmin):
 
 @admin.register(Card2User)
 class Card2UserAdmin(admin.ModelAdmin):
-    list_display = ['user', 'card', 'position', 'is_right']
+    list_display = ['user', 'card', 'position', 'is_right', 'is_down']
 
 @admin.register(Propose)
 class ProposeAdmin(admin.ModelAdmin):

@@ -38,8 +38,8 @@ def update_online_users_in_json():
 
 
 def get_random_card():
-    return Card.objects.all().order_by('?').first()
-    #return Card.objects.filter(on_hand=False).order_by('?').first()
+    #return Card.objects.all().order_by('?').first()
+    return Card.objects.filter(on_hand=False).order_by('?').first()
 
 def put_user_cards_to_json(user):
     with open(json_path, 'r') as file:
@@ -73,18 +73,33 @@ def put_card_on_table_json(user,card,is_right):
     c2u = Card2User.objects.get(user=user,card=card,position='hand')
     c2u.position = 'table'
     c2u.is_right = is_right
+    c2u.is_down = True;
     c2u.save()
+    is_down = True
+    if not is_right:
+        count_cards = Card2User.objects.filter(position='table').count()
+        count_users = Gameuser.objects.filter(is_online=True).count()
+        if count_cards == count_users:
+            for c in Card2User.objects.filter(position='table'):
+                c.is_down = False
+                c.save()
+                
+
     card.on_hand = False
     card.save()
+    
     with open(json_path, 'r') as file:
         json_data = json.loads(file.read())
-    json_data['table'].append( \
-        { \
-            "id": card.id, \
-            "image": card.image.url, \
-            "is_true": "false" \
-        } \
-    ) 
+    table = [ 
+        { 
+            "id": item.card.id, 
+            "image": item.card.image.url, 
+            "is_down": item.is_down, 
+            "is_true": item.is_right                 
+        } 
+        for item in Card2User.objects.filter(position='table') 
+    ]
+    json_data['table'] = table
     with open(json_path, 'w') as file:
         file.write(json.dumps(json_data))
     put_user_cards_to_json(user)

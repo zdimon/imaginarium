@@ -58,7 +58,12 @@
             var board_div = $('#board');
             board_div.empty();
             state.table.forEach(function(el){
-                board_div.append(`<img data-card-id="${el.id}" id="${el.id}-board-card" src="${el.image}">`);
+                if(el.is_down) {
+                    var imgurl = '/static/images/back.png';
+                } else {
+                    var imgurl = el.image;
+                }
+                board_div.append(`<img data-card-id="${el.id}" id="${el.id}-board-card" src="${imgurl}">`);
 
                 $(`#${el.id}-board-card`).on('click', function(el) {
                     var obj = $(el.target);
@@ -182,31 +187,35 @@
 
         var draw_help_message = function(state) {
             var block = $('#help_message');
-            var user = get_current_user(state.users);
-            if(user.state === 'gessor') {
-                var message = 'Загадывайте ассоциацию и выбирайте картинку!';
-               
-            } else if(user.state === 'gessed') {
-                var message = 'Подождите пока все игроки попытаются угадать.';
-               
-            } else if(user.state === 'betor') {
-                var message = 'Подождите пока загадают ассоциацию и выберете под нее картинку.';
-               
-            } else if(user.state === 'beted') {
-                var message = 'Подождите пока все игроки выложат по картинке.';
-               
-            } else if(user.state === 'proposer') {
-                var message = 'Пробуйте угадать правильную картинку.';
-               
-            } else if(user.state === 'proposeed') {
-                var message = 'Ожидайте пока все не сделают ставки.';
-               
+            try {
+                var user = get_current_user(state.users);
+                if(user.state === 'gessor') {
+                    var message = 'Загадывайте ассоциацию и выбирайте картинку!';
+                
+                } else if(user.state === 'gessed') {
+                    var message = 'Подождите пока все игроки попытаются угадать.';
+                
+                } else if(user.state === 'betor') {
+                    var message = 'Подождите пока загадают ассоциацию и выберете под нее картинку.';
+                
+                } else if(user.state === 'beted') {
+                    var message = 'Подождите пока все игроки выложат по картинке.';
+                
+                } else if(user.state === 'proposer') {
+                    var message = 'Пробуйте угадать правильную картинку.';
+                
+                } else if(user.state === 'proposeed') {
+                    var message = 'Ожидайте пока все не сделают ставки.';
+                
+                }
+                else {
+                    var message = 'Сообщения нет!';
+                }
+                block.empty();
+                block.html(message);
+            } catch {
+
             }
-            else {
-                var message = 'Сообщения нет!';
-            }
-            block.empty();
-            block.html(message);
             
         }
 
