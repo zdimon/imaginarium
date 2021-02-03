@@ -27,6 +27,12 @@ urlpatterns = [
     path('logout', logout),
     path('hello', hello),
     path('deploy', deploy),
+
+    # api routes
+    path('guessing', guessing),
+    path('betting', betting),
+    path('proposing', proposing),
+
     url(r'^admin/', admin.site.urls),
 ]
 

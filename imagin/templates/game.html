@@ -10,7 +10,7 @@
         });
 
     socket.on('ping', msg => {
-        console.log(msg);
+        // console.log(msg);
         draw_users(msg.state);
         draw_board(msg.state);
         draw_hand(msg.state);
@@ -50,10 +50,16 @@
             hand_div.empty();
             var user_login = window.localStorage.getItem('login');
             state.users.forEach(function(el){
-                console.log(el);
+                
                 if(el.login === user_login) {
                     el.cards.forEach(function(card){
-                        hand_div.append(`<img width=50 src="${card.image}">`);
+                        hand_div.append(`<img data-card-id="${card.id}" id="${card.id}-hand" width=50 src="${card.image}">`);
+
+                        $(`${card.id}-hand`).on('click', function(el) {
+                             console.log(el);
+                        });
+
+
                     })
                 }
                 
@@ -62,10 +68,15 @@
             hand_small_div.empty();
             var user_login = window.localStorage.getItem('login');
             state.users.forEach(function(el){
-                console.log(el);
+                // console.logconsole.log(el);
                 if(el.login === user_login) {
                     el.cards.forEach(function(card){
-                        hand_small_div.append(`<img width=50 src="${card.image}">`);
+                        
+                        hand_small_div.append(`<img data-card-id="${card.id}" id="${card.id}-hand-small" width=50 src="${card.image}">`);
+
+                        $(`${card.id}-hand-small`).on('click', function(el) {
+                             console.log(el);
+                        });
                     })
                 }
                 
