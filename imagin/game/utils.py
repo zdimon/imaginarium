@@ -26,7 +26,7 @@ def update_online_users_in_json():
                  { \
                     'id':item.card.id, \
                     'image':item.card.image.url, \
-                 } for item in Card2User.objects.filter(user=user)
+                 } for item in Card2User.objects.filter(user=user, position='hand')
              ]
              }) 
         print('append',user.login)
@@ -40,13 +40,15 @@ def get_random_card():
     return Card.objects.filter(on_hand=False).order_by('?').first()
 
 def dial_cards_to_user(user):
-    count_cards = Card2User.objects.filter(user=user).count()
+    count_cards = Card2User.objects.filter(user=user,position='hand').count()
     for number in range(count_cards,6):
         card = get_random_card()
         c2u = Card2User()
         c2u.user = user
         c2u.card = card
         c2u.save()
+        card.on_hand = True
+        card.save()
 
 
 

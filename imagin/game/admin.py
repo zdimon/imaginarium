@@ -11,5 +11,5 @@ class CardAdmin(admin.ModelAdmin):
     list_display = ['image_tag', 'on_hand']
 
 @admin.register(Card2User)
-class CardAdmin(admin.ModelAdmin):
-    list_display = ['card', 'user']
+class Card2UserAdmin(admin.ModelAdmin):
+    list_display = ['card', 'user', 'position']

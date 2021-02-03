@@ -51,6 +51,14 @@ class Card(models.Model):
     def image_tag(self):
         return mark_safe(f'<img src="{self.image.url}" width=100 />')
 
+POSITION = (
+    ("hand", "hand"),
+    ("table", "table")
+)
+
 class Card2User(models.Model):
     user = models.ForeignKey(Gameuser,on_delete=models.CASCADE)
     card = models.ForeignKey(Card,on_delete=models.CASCADE)
+    position = models.CharField(max_length=10,
+                            choices=POSITION,
+                            default="hand")    
