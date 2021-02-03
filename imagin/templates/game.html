@@ -107,7 +107,37 @@
             state.users.forEach(function(el){
                 if(el.login === user_login) {
                     el.cards.forEach(function(card){
-                        hand_div.append(`<img src="${card.image}">`);
+                        hand_div.append(`<img  data-card-id="${card.id}" id="${card.id}-hand-card" src="${card.image}">`);
+                        $(`#${card.id}-hand-card`).on('click', function(el) {
+                            var obj = $(el.target);
+
+                            var myJSObject = {
+                                login: window.{{storage}}.getItem('login'),
+                                card_id: obj.attr('data-card-id'),
+                                assoc: $('#assoc-input').val()
+                            };
+                            var user = get_current_user(state.users);
+                            if(user.state === 'gessor') {
+                                $.ajax('/gessing', {
+                                    data : JSON.stringify(myJSObject),
+                                    contentType : 'application/json',
+                                    type : 'POST',
+                                    success: function(data) {
+                                        console.log(data);
+                                    }
+                                });
+                            }
+                            if(user.state === 'betor') {
+                                $.ajax('/betting', {
+                                    data : JSON.stringify(myJSObject),
+                                    contentType : 'application/json',
+                                    type : 'POST',
+                                    success: function(data) {
+                                        console.log(data);
+                                    }
+                                });                                
+                            }
+                        });
                     })
                 }
                 
