@@ -9,6 +9,7 @@ def gessing(request):
     data = json.loads(request.body)
     user = Gameuser.objects.get(login=data['login'])
     user.state = 'gessed'
+    user.association = data['assoc']
     user.save()
     card = Card.objects.get(pk=int(data['card_id']))
     try:

@@ -3,7 +3,7 @@ from game.models import Gameuser, Card, Card2User, Propose
 
 @admin.register(Gameuser)
 class GameuserAdmin(admin.ModelAdmin):
-    list_display = ['login', 'sids', 'image', 'password', 'state', 'is_online']
+    list_display = ['login', 'sids', 'image', 'password', 'state', 'is_online', 'association']
 
 @admin.register(Card)
 class CardAdmin(admin.ModelAdmin):

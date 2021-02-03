@@ -49,6 +49,7 @@
                 <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>`;
                 gessor_image.empty();
                 gessor_image.append(tpl);
+                $('#association_text').html(gessor.association);
             }     
     }
 
@@ -101,7 +102,8 @@
 
                             var myJSObject = {
                                 login: window.localStorage.getItem('login'),
-                                card_id: obj.attr('data-card-id')
+                                card_id: obj.attr('data-card-id'),
+                                assoc: $('#assoc-input').val()
                             };
                             var user = get_current_user(state.users);
                             if(user.state === 'gessor') {

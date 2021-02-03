@@ -4,7 +4,7 @@
       <!-- Required meta tags -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Imaginarium</title>
+      <title>Imaginarium ({{ git_branch }})</title>
       <!-- Favicon -->
       <link rel="shortcut icon" href="images/favicon.ico" />
       <!-- Bootstrap CSS -->
@@ -27,20 +27,11 @@
             <div class="right-sidebar-panel p-0">
                <div class="iq-card shadow-none">
                   <div class="iq-card-body p-0">
+
                      <div class="media-height p-3" id="players">
-                        <div class="media align-items-center mb-4">
-                           <div class="iq-profile-avatar status-online">
-                              <img class="rounded-circle avatar-50" src="/static/images/user/01.jpg" alt="">
-                           </div>
-                           <div class="media-body ml-3">
-                              <h6 class="mb-0"><a href="#">Anna Sthesia</a></h6>
-                              <p class="mb-0">Admin</p>
-                           </div>
-                        </div>
-
-
-       
+                        <!--- players -->
                      </div>
+
                      <div class="right-sidebar-toggle bg-primary mt-3">
                         <i class="ri-arrow-left-line side-left-icon"></i>
                         <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Close Menu</span></i> 
@@ -75,7 +66,7 @@
                                                       <img src="/static/images/q.png" alt="avatar" class="avatar-50 ">
                                                       <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
                                                    </div>
-                                                   <h5 class="mb-0">No assotiation</h5>
+                                                   <h5 class="mb-0" id="association_text">No assotiation</h5>
                                                    <div id="start_button" style="display: none">
                                                       <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Start the game</span></button>
                                                    </div>
@@ -120,7 +111,7 @@
                                           <div class="chat-footer p-3 bg-white">
                                              <form class="d-flex align-items-center"  action="javascript:void(0);">
                                                 
-                                                <input type="text" class="form-control mr-3" placeholder="Type your association">
+                                                <input type="text" class="form-control mr-3" placeholder="Type your association" id="assoc-input">
                                                 <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
                                              </form>
                                           </div>

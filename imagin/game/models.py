@@ -18,6 +18,7 @@ class Gameuser(models.Model):
     image = models.ImageField(upload_to='user_images',null=True,blank=True)
     sids = models.TextField(default='')
     is_online = models.BooleanField(default=False)
+    association = models.TextField(default="empty")
     state = models.CharField(max_length=10,
                             choices=USER_STATES,
                             default="betor")

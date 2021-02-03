@@ -23,6 +23,7 @@ def update_online_users_in_json():
              'login': user.login, \
              'image': user.image.url, \
              'state': user.state, \
+             'association': user.association, \
              'cards': [
                  { \
                     'id':item.card.id, \
