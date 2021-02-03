@@ -1,5 +1,5 @@
 from django.contrib import admin
-from game.models import Gameuser, Card, Card2User
+from game.models import *
 
 @admin.register(Gameuser)
 class GameuserAdmin(admin.ModelAdmin):
@@ -13,3 +13,7 @@ class CardAdmin(admin.ModelAdmin):
 @admin.register(Card2User)
 class Card2UserAdmin(admin.ModelAdmin):
     list_display = ['card', 'user', 'position']
+
+@admin.register(Propose)
+class ProposeAdmin(admin.ModelAdmin):
+    list_display = ['owner', 'proposer', 'card', 'is_right']

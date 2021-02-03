@@ -52,9 +52,10 @@ def dial_cards_to_user(user):
 
 
 
-def put_card_on_table_json(user,card):
+def put_card_on_table_json(user,card,is_right):
     c2u = Card2User.objects.get(user=user,card=card)
     c2u.position = 'table'
+    c2u.is_right = is_right
     c2u.save()
     card.on_hand = False
     card.save()

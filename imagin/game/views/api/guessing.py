@@ -15,5 +15,5 @@ def guessing(request):
         Card2User.objects.get(user=user,position='table')
         return HttpResponse('Error')
     except Exception as e:
-        put_card_on_table_json(user,card)
+        put_card_on_table_json(user,card,True)
         return HttpResponse('OK')        

@@ -1,0 +1,92 @@
+slug: python-imaginarium
+name: Игра Imaginarium.
+meta_title: Игра Imaginarium.
+meta_keywords: Игра Imaginarium.
+meta_description: Игра Imaginarium.
+is_active: true
+tags: python video
+desc:
+      Создаем бекенд и фронтенд для онлайн игры.
+files:
+
+    -
+        file:  python-imaginarium.md
+        title: Игра Imaginarium.
+        meta_title: Игра Imaginarium.
+        meta_description: Игра Imaginarium.
+        meta_keywords: Игра Imaginarium.
+        desc: 
+        order: 1
+
+    -
+        file:  imaginarium-registration.md
+        title: Регистрация и активация пользователя.
+        meta_title: Регистрация и активация пользователя.
+        meta_description: Регистрация и активация пользователя.
+        meta_keywords: Регистрация и активация пользователя.
+        desc:
+        order: 2
+
+    -
+        file:  imaginarium-socketauth.md
+        title: Авторизация по веб-сокету.
+        meta_title: Авторизация по веб-сокету.
+        meta_description: Авторизация по веб-сокету.
+        meta_keywords: Авторизация по веб-сокету.
+        desc:
+        order: 3
+
+    -
+        file:  imaginarium-gameboard.md
+        title: Рисуем игровую доску.
+        meta_title: Рисуем игровую доску.
+        meta_description: Рисуем игровую доску.
+        meta_keywords: Рисуем игровую доску.
+        desc:
+        order: 4
+
+    -
+        file:  imaginarium-docker.md
+        title: Контейнеризируем приложение.
+        meta_title: Контейнеризируем приложение.
+        meta_description: Контейнеризируем приложение.
+        meta_keywords: Контейнеризируем приложение.
+        desc: 
+        order: 5
+
+    -
+        file:  imaginarium-cards.md
+        title: Раздаем карты.
+        meta_title: Раздаем карты.
+        meta_description: Раздаем карты.
+        meta_keywords: Раздаем карты.
+        desc: 
+        order: 6
+
+    -
+        file:  8-user-actions.md
+        title: Действия пользователей.
+        meta_title: Действия пользователей.
+        meta_description: Действия пользователей.
+        meta_keywords: Действия пользователей.
+        desc: 
+        order: 7
+
+    -
+        file:  9-user-state.md
+        title: Контролируем статус игроков.
+        meta_title: Контролируем статус игроков.
+        meta_description: Контролируем статус игроков.
+        meta_keywords: Контролируем статус игроков.
+        desc: 
+        order: 8
+
+    -
+        file:  imaginarium-githook.md
+        title: Создаем непрерывную интеграцию через GIT.
+        meta_title: Создаем непрерывную интеграцию через GIT.
+        meta_description: Создаем непрерывную интеграцию через GIT.
+        meta_keywords: Создаем непрерывную интеграцию через GIT.
+        desc: 
+        order: 8
+

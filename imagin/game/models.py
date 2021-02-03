@@ -61,4 +61,12 @@ class Card2User(models.Model):
     card = models.ForeignKey(Card,on_delete=models.CASCADE)
     position = models.CharField(max_length=10,
                             choices=POSITION,
-                            default="hand")    
+                            default="hand")  
+    is_right = models.BooleanField(default=False)
+
+class Propose(models.Model):
+    proposer = models.ForeignKey(Gameuser,on_delete=models.CASCADE,related_name='proposer')
+    owner = models.ForeignKey(Gameuser,on_delete=models.CASCADE,related_name='owner')
+    card = models.ForeignKey(Card,on_delete=models.CASCADE)  
+    is_right = models.BooleanField(default=False)
+
