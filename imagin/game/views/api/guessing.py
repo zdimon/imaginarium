@@ -2,7 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import json
 from game.utils import put_card_on_table_json
-from game.models import Gameuser, Card
+from game.models import Gameuser, Card, Card2User
 
 
 @csrf_exempt
