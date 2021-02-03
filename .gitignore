@@ -2,4 +2,4 @@ venv
 *.pyc
 .env
 imagin/db.sqlite3
-imagin/static/data.json
+imagin/static/data.json 
