@@ -24,6 +24,12 @@
         draw_rezult(msg);
     })
 
+    socket.on('show_table', msg => {
+        $('#rezult_block').hide();
+        $('#hand_block').show();
+        $('#board_block').show();
+    })
+
     var draw_rezult = function (state) {
         var rb =  $('#rezult_board')
 
