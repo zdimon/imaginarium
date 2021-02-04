@@ -158,12 +158,8 @@ def try_to_count():
                     }
                 })
         
-        #for c2u in Card2User.objects.filter(position='table'):
-
-        #print(jdata)
         mgr.emit('rezult', data=jdata)
         
-
         Card2User.objects.filter(position='table').delete()
         for user in Gameuser.objects.filter(is_online=True):
             dial_cards_to_user(user)
