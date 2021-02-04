@@ -17,7 +17,7 @@ class Gameuser(models.Model):
     image = models.ImageField(upload_to='user_images',null=True,blank=True,verbose_name='Выберите картинку')
     sids = models.TextField(default='')
     is_online = models.BooleanField(default=False)
-    association = models.TextField(default="empty")
+    association = models.TextField(default="Придумываем ассоциацию")
     state = models.CharField(max_length=10,
                             choices=USER_STATES,
                             default="betor")
@@ -90,7 +90,7 @@ class Card2User(models.Model):
         card = self.card
         card.on_hand = False
         card.save()
-        super(Gameuser, self).save(*args, **kwargs)
+        super(Card2User, self).save(*args, **kwargs)
         
 
 class Propose(models.Model):

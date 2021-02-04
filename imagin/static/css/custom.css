@@ -159,3 +159,64 @@ img.card-back-small {
     font-size: 22px;
     
 }
+
+.center-image {
+    width: 180px;
+    height: 260px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid silver;
+    border-radius: 5px;
+}
+
+#hand_small img {
+    padding-left: 2px;
+}
+
+.iq-profile-avatar.status-gessor:before { background-color: green; }
+.iq-profile-avatar.status-gessed:before { background-color: greenyellow; }
+
+.iq-profile-avatar.status-betor:before { background-color: blue; }
+.iq-profile-avatar.status-beted:before { background-color: blueviolet; }
+
+.iq-profile-avatar.status-proposer:before { background-color: red; }
+.iq-profile-avatar.status-proposed:before { background-color: black; }
+
+.right-card {
+    border: 2px solid green;
+}
+
+.wrong-card {
+    border: 2px solid red;
+}
+.rez-p-right-card {
+   border: 1px solid silver;
+   width: 300px;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   border-radius: 5px;
+   margin-top: 5px;
+   margin-bottom: 5px;
+   background-color: greenyellow;
+}
+
+.rez-p-wrong-card {
+    border: 1px solid silver;
+    width: 300px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: lightpink;
+ }
+
+.rez-bonus { 
+    color: red; 
+    font-weight: bold;
+}
+
+.rez-bonus-green { 
+    color: green; 
+    font-weight: bold;
+}

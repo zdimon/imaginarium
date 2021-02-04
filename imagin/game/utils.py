@@ -119,15 +119,50 @@ def clear_table():
 
 from django.db.models import Q
 
+import socketio   
+mgr = socketio.RedisManager('redis://localhost:6379/0', write_only=True)
+
 def try_to_count():
     usercheck = Gameuser.objects.filter(Q(state='propose') | Q(state='bet') | Q(state='beted'), is_online=True).count()
     print('Checkuser ', usercheck)
     if usercheck == 0:
+        print('Counting')
+
+        ## Формируем json
+        jdata = []
         for p in Propose.objects.all():
             if p.is_right:
                 user = p.proposer
                 user.account += 1
                 user.save()
+                jdata.append({
+                    "image": p.card.image.url,
+                    "is_right": p.is_right,
+                    "bonus": 1,
+                    "owner": {
+                        "login": p.proposer.login,
+                        "image": p.proposer.image.url
+                    }
+                })
+            else:
+                user = p.owner
+                user.account += 1
+                user.save()
+                jdata.append({
+                    "image": p.card.image.url,
+                    "is_right": p.is_right,
+                    "bonus": 1,
+                    "owner": {
+                        "login": p.owner.login,
+                        "image": p.owner.image.url
+                    }
+                })
+        
+        #for c2u in Card2User.objects.filter(position='table'):
+
+        #print(jdata)
+        mgr.emit('rezult', data=jdata)
+        
 
         Card2User.objects.filter(position='table').delete()
         for user in Gameuser.objects.filter(is_online=True):
@@ -139,7 +174,8 @@ def try_to_count():
             nextuser = Gameuser.objects.filter(state='proposed', is_online=True, id__gt=dialer.id).order_by('id')[0]
         except:
             nextuser = Gameuser.objects.filter(state='proposed', is_online=True).order_by('-id')[0]
-
+        Gameuser.objects.all().update(state='betor')
         nextuser.state = 'gessor'
         nextuser.save()
-        Gameuser.objects.exclude(state='gessor').update(state='betor')
+        Propose.objects.all().delete()
+        

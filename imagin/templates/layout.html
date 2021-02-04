@@ -64,6 +64,7 @@
                                                       <img src="/static/images/q.png" alt="avatar" class="avatar-50 ">
                                                       <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
                                                    </div>
+                                                   
                                                    <h5 class="mb-0" id="association_text">No assotiation</h5>
                                                    <div id="start_button" style="display: none">
                                                       <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Start the game</span></button>
@@ -86,9 +87,26 @@
                                           </div>
                                           <div class="chat-content scroller" style="height: calc(100vh - 14rem);">
                                              <div class="chat">
-             
-                                                <div class="chat-detail">
+
+                                                <div 
+                                                class="chat-detail" 
+                                                style="display: none;" 
+                                                id="rezult_block">
                                                    <div class="chat-message">
+                                                      <strong style="color: black">Результат игры</strong>
+                                                      <p class="img-board" id="rezult_board">
+
+                                             
+                                                      </p>
+                                                   </div>
+                                                </div>
+             
+                                                <div 
+                                                class="chat-detail" 
+                                                id="board_block"
+                                                >
+                                                   <div class="chat-message">
+                                                      <strong style="color: black">Карты на столе</strong>
                                                       <p class="img-board" id="board">
 
                                                         
@@ -96,10 +114,12 @@
                                                    </div>
                                                 </div>
                                              </div>
-                                             <div class="chat chat-left">
+                                             <div class="chat chat-left"
+                                             id="hand_block">
                                                
                                                 <div class="chat-detail">
                                                    <div class="chat-message">
+                                                      <strong>Ваши карты</strong>
                                                       <p class="img-board" id="hand">
                                                          
                                                         

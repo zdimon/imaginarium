@@ -20,23 +20,49 @@
         
     })
 
+    socket.on('rezult', msg => {
+        draw_rezult(msg);
+    })
+
+    var draw_rezult = function (state) {
+        var rb =  $('#rezult_board')
+
+        $('#rezult_block').show();
+        $('#hand_block').hide();
+        $('#board_block').hide();
+        state.forEach(function(el){
+            if(el.is_right){
+                var isr = 'right-card';
+            } else {
+                var isr = 'wrong-card';
+            }
+            let tpl = `
+                                          
+                <div class="avatar chat-user-profile m-0 mr-3 rez-p-${isr}">
+                    <img class="${isr}" height="70" src="${el.image}" />
+                <img src="${el.owner.image}" alt="avatar" class="avatar-50 ">
+                <span style="color: black">${el.owner.login}</span>
+                <span class ="rez-bonus">+${el.bonus}</span>
+                </div>
+               
+            
+            `;
+            rb.append(tpl);
+        });
+    }
 
     var draw_users = function (state) {
         var players_div = $('#players');
             players_div.empty();
             state.users.forEach(function(el){
-                if(el.state === 'gessor'){
-                    var status = 'online';
-                } else {
-                    var status = 'offline';
-                }
+                
                 let tpl = `<div class="media align-items-center mb-4">
-                           <div class="iq-profile-avatar status-${status}">
+                           <div class="iq-profile-avatar status-${el.state}">
                               <img class="rounded-circle avatar-50" src="${el.image}" alt="">
                            </div>
                            <div class="media-body ml-3">
-                              <h6 class="mb-0"><a href="#">${el.state}</a></h6>
-                              <p class="mb-0">${el.login}</p>
+                              <h6 class="mb-0"><a href="#">${el.login}</a></h6>
+                              <p class="mb-0">${el.account} очков (${el.state})</p>
                            </div>
                         </div>`
                 players_div.append(tpl);
@@ -49,7 +75,7 @@
                 <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>`;
                 gessor_image.empty();
                 gessor_image.append(tpl);
-                $('#association_text').html(gessor.association);
+                $('#association_text').html(`<strong>${gessor.login}</strong>: ${gessor.association}`);
             }  
             try {
                 var current_user = get_current_user(state.users); 
@@ -71,7 +97,7 @@
                 } else {
                     var imgurl = el.image;
                 }
-                board_div.append(`<img data-card-id="${el.id}" id="${el.id}-board-card" src="${imgurl}">`);
+                board_div.append(`<img class="center-image" data-card-id="${el.id}" id="${el.id}-board-card" src="${imgurl}">`);
 
                 var user = get_current_user(state.users);
                 if(user.state === 'beted') {
@@ -107,7 +133,7 @@
             state.users.forEach(function(el){
                 if(el.login === user_login) {
                     el.cards.forEach(function(card){
-                        hand_div.append(`<img  data-card-id="${card.id}" id="${card.id}-hand-card" src="${card.image}">`);
+                        hand_div.append(`<img class="pointer center-image" data-card-id="${card.id}" id="${card.id}-hand-card" src="${card.image}">`);
                         $(`#${card.id}-hand-card`).on('click', function(el) {
                             var obj = $(el.target);
 
@@ -118,16 +144,24 @@
                             };
                             var user = get_current_user(state.users);
                             if(user.state === 'gessor') {
+                                obj.hide();
+                                $('#rezult_block').hide();
+                                $('#hand_block').show();
+                                $('#board_block').show();
                                 $.ajax('/gessing', {
                                     data : JSON.stringify(myJSObject),
                                     contentType : 'application/json',
                                     type : 'POST',
                                     success: function(data) {
-                                        console.log(data);
+                                        $('#assoc-input').val('');
                                     }
                                 });
                             }
                             if(user.state === 'betor') {
+                                obj.hide();
+                                $('#rezult_block').hide();
+                                $('#hand_block').show();
+                                $('#board_block').show();
                                 $.ajax('/betting', {
                                     data : JSON.stringify(myJSObject),
                                     contentType : 'application/json',
@@ -150,7 +184,9 @@
                         hand_small_div.append(`<img class="pointer" data-card-id="${card.id}" id="${card.id}-hand-card-small" height="60" src="${card.image}">`);
                         $(`#${card.id}-hand-card-small`).on('click', function(el) {
                             var obj = $(el.target);
-
+                            $('#rezult_block').hide();
+                            $('#hand_block').show();
+                            $('#board_block').show();
                             var myJSObject = {
                                 login: window.{{storage}}.getItem('login'),
                                 card_id: obj.attr('data-card-id'),
@@ -158,16 +194,24 @@
                             };
                             var user = get_current_user(state.users);
                             if(user.state === 'gessor') {
+                                obj.hide();
+                                $('#rezult_block').hide();
+                                $('#hand_block').show();
+                                $('#board_block').show();
                                 $.ajax('/gessing', {
                                     data : JSON.stringify(myJSObject),
                                     contentType : 'application/json',
                                     type : 'POST',
                                     success: function(data) {
-                                        console.log(data);
+                                        $('#assoc-input').val('');
                                     }
                                 });
                             }
                             if(user.state === 'betor') {
+                                obj.hide();
+                                $('#rezult_block').hide();
+                                $('#hand_block').show();
+                                $('#board_block').show();
                                 $.ajax('/betting', {
                                     data : JSON.stringify(myJSObject),
                                     contentType : 'application/json',
@@ -188,6 +232,7 @@
         var draw_start_button = function(state) {
             var is_show = true;
             var hand_div = $('#start_button');
+
             state.users.forEach(function(el){
                 if(el.state === 'gessor' || el.state === 'gessed') {
                     is_show = false;
@@ -196,7 +241,11 @@
             if(is_show === true) {
                 
                 hand_div.show();
-                $('#start_button').on('click',function() {
+                $('#start_button').on('click',function(el) {
+                    $(el.target).hide();
+                    $('#rezult_block').hide();
+                    $('#hand_block').show();
+                    $('#board_block').show();
                     $.ajax('/start', {
                                 data : JSON.stringify({
                                     login: window.{{storage}}.getItem('login')
