@@ -160,7 +160,7 @@ def try_to_count():
         
         mgr.emit('rezult', data=jdata)
         
-        for c in Card2User.objects.filter(position='table').delete()
+        Card2User.objects.filter(position='table').delete()
 
         for user in Gameuser.objects.filter(is_online=True):
             dial_cards_to_user(user)
