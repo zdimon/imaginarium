@@ -1,0 +1,3 @@
+. ./venv/bin/activate
+cd imagin
+celery -A imagin worker -l info
