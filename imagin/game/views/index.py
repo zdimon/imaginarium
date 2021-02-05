@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .forms import GameuserForm
 from game.utils import find_user, dial_cards_to_user, clear_table
 from imagin.settings import BROWSER_STORAGE
+from game.tasks import send_data_task
 
 def index(request):
     user = None
@@ -13,6 +14,8 @@ def index(request):
             if form.is_valid():
                 user = form.save()
         clear_table()
+        user.set_guessor()
+        
     else:
         form = GameuserForm()
     

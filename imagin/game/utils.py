@@ -2,6 +2,7 @@ from game.models import Gameuser, Card2User, Card, Propose
 from imagin.settings import BASE_DIR
 json_path = f'{BASE_DIR}/static/data.json'
 import json
+from game.tasks import send_data_task
 
 def find_user(login):
     user = None
@@ -34,7 +35,9 @@ def update_online_users_in_json():
         print('append',user.login)
     json_data['users'] = users
     with open(json_path, 'w') as file:
-        file.write(json.dumps(json_data))        
+        file.write(json.dumps(json_data)) 
+
+    send_data_task.delay()       
 
 
 def get_random_card():
@@ -55,6 +58,8 @@ def put_user_cards_to_json(user):
 
     with open(json_path, 'w') as file:
         file.write(json.dumps(json_data))
+
+    send_data_task.delay()  
 
 def dial_cards_to_user(user):
     count_cards = Card2User.objects.filter(user=user,position='hand').count()
@@ -130,6 +135,18 @@ def try_to_count():
 
         ## Формируем json
         jdata = []
+
+        # Прикрепляем правильную карту с гадалкой
+        rc = Card2User.objects.get(is_right=True,position='table')
+        jdata.append({
+            "image": rc.card.image.url,
+            "is_right": True,
+            "bonus": 2,
+            "owner": {
+                "login": rc.user.login,
+                "image": rc.user.image.url
+            }
+        })
         for p in Propose.objects.all():
             if p.is_right:
                 user = p.proposer
