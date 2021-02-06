@@ -11,7 +11,7 @@ USER_STATES = (
     ("proposer", "proposer"),
     ("proposed", "proposed")
 )
-
+#class Gameuser(models.Model, MixinMyclass):
 class Gameuser(models.Model):
     login = models.CharField(max_length=50,unique=True, verbose_name='Ваше имя')
     image = models.ImageField(upload_to='user_images',null=True,blank=True,verbose_name='Выберите картинку')

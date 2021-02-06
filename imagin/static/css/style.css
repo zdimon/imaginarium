@@ -123,8 +123,10 @@ a:hover { text-decoration: none; }
 -----------------------------------------------------------------------*/
 .iq-profile-avatar { position: relative; }
 .iq-profile-avatar:before { content: ''; position: absolute; border-radius: 100%; z-index: 1; border: 2px solid var(--iq-white); background-color: var(--iq-body-text); height: 16px; width: 16px; right: 0; bottom: -3px; }
+
 .iq-profile-avatar.status-online:before { background-color: var(--iq-success); }
 .iq-profile-avatar.status-away:before { background-color: var(--iq-warning); }
+
 .avatar-upload { position: relative; max-width: 205px; margin: 15px 0 0; }
 .avatar-upload .avatar-edit { position: absolute; right: 12px; z-index: 1; top: 10px; }
 .avatar-upload .avatar-edit input { display: none; }
