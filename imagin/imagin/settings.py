@@ -134,9 +134,21 @@ load_dotenv()
 SOCKET_SERVER = os.getenv('SOCKET_SERVER','ws://localhost:5001')
 BROWSER_STORAGE = os.getenv('BROWSER_STORAGE','sessionStorage')
 
+REDIS_HOST = os.getenv('SQL_HOST', 'localhost')
+REDIS_PORT = os.getenv('SQL_PORT', '6379')
+
+CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + str(REDIS_PORT)
+
+
+
+
+
+
+
+
 def make_json_data_if_not_exists():
     path = f'{BASE_DIR}/static/data.json'
     with open(path, 'w+') as f:
         f.write('{"table": [], "users": [], "status": "start", "association": ""}')
 
-make_json_data_if_not_exists() 
+#make_json_data_if_not_exists() 

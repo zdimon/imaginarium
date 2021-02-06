@@ -1,3 +1,4 @@
+wheel
 Django
 python-socketio
 eventlet
@@ -8,4 +9,4 @@ Pillow
 redis
 python-dotenv
 GitPython
-wheel
+celery

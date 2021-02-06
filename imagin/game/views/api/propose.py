@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from game.models import Gameuser, Card, Card2User, Propose
 import json
 from game.utils import try_to_count
+from game.tasks import send_data_task
 
 @csrf_exempt
 def propose(request):
@@ -24,5 +25,6 @@ def propose(request):
             p.is_right = True
         p.save()
         try_to_count()
+        send_data_task.delay()
     return HttpResponse('OK')
     

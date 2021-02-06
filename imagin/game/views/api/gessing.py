@@ -5,6 +5,7 @@ from game.utils import put_card_on_table_json
 from game.models import Gameuser, Card, Card2User
 import socketio   
 mgr = socketio.RedisManager('redis://localhost:6379/0', write_only=True)
+from game.tasks import send_data_task
 
 @csrf_exempt
 def gessing(request):
@@ -20,5 +21,6 @@ def gessing(request):
     except Exception as e:
         put_card_on_table_json(user,card, True)
         mgr.emit('show_table', data={})
+        send_data_task.delay()
         return HttpResponse('OK')
     

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.safestring import mark_safe
-
+from django.db.models import Q
 
 
 USER_STATES = (
@@ -33,6 +33,14 @@ class Gameuser(models.Model):
         self.sids = ';'.join(sids)
         self.save()
         self.check_online()
+
+    
+    def set_guessor(self):
+        for u in Gameuser.objects.filter(Q(state='gessor') | Q(state='gessed')):
+            u.state = 'bettor'
+            u.save()
+        self.state = 'gessor'
+        self.save()
         
 
     @staticmethod
