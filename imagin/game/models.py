@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.db.models import Q
+from django.utils.translation import gettext as _
 
 
 USER_STATES = (
@@ -13,7 +14,7 @@ USER_STATES = (
 )
 #class Gameuser(models.Model, MixinMyclass):
 class Gameuser(models.Model):
-    login = models.CharField(max_length=50,unique=True, verbose_name='Ваше имя')
+    login = models.CharField(max_length=50,unique=True, verbose_name=_('Ваше имя'))
     image = models.ImageField(upload_to='user_images',null=True,blank=True,verbose_name='Выберите картинку')
     sids = models.TextField(default='')
     is_online = models.BooleanField(default=False)

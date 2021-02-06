@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from game.views import *
 
@@ -32,6 +32,7 @@ urlpatterns = [
     path('betting', betting),
     path('propose', propose),
     path('start', start),
+    path('rosetta', include('rosetta.urls')),
 
     url(r'^admin/', admin.site.urls),
 ]

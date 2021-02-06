@@ -10,3 +10,4 @@ redis
 python-dotenv
 GitPython
 celery
+django-rosetta
