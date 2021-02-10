@@ -19,7 +19,20 @@ from django.urls import path, include
 
 from game.views import *
 
+from rest_framework import routers
+
+from game.views.api.card_viewset import CardViewSet, TestView
+
+
+
+router = routers.DefaultRouter()
+router.register(r'card', CardViewSet)
+
+
 urlpatterns = [
+
+    path('api/', include(router.urls)),
+    path('api/test', TestView.as_view()),
 
 
     path('', index),
