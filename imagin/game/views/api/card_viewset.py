@@ -10,7 +10,7 @@ class CardViewSet(viewsets.ModelViewSet):
     """
     queryset = Card.objects.all().order_by('-id')
     serializer_class = CardSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
