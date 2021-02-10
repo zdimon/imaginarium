@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'game',
     'rosetta',
-    'rest_framework'
+    'rest_framework',
+    'drf_yasg',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
