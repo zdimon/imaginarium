@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rosetta',
     'rest_framework',
     'drf_yasg',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'schema_graph'
 ]
 
 MIDDLEWARE = [

@@ -27,6 +27,7 @@ from game.views.api.card_viewset import CardViewSet, TestView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from schema_graph.views import Schema
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -35,6 +36,8 @@ schema_view = get_schema_view(
       description=''' 
 
           Documentation `ReDoc` view can be found [here](/doc).
+
+            The Model graph can be found [here](/schema) .
 
           Authors: zdimon77@gmail.com;
 
@@ -55,7 +58,8 @@ urlpatterns = [
 
     path('api/', include(router.urls)),
     path('api/test', TestView.as_view()),
-    path('swagger', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('swagger', schema_view.with_ui('swagger', cache_timeout=0)), 
+    path("schema/", Schema.as_view(),name='schema-swagger-ui'),
     path('doc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('', index),
     path('game', game, name='game'),
